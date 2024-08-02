@@ -14,7 +14,7 @@ func NovoRepositorioDeUsuarios(db *sql.DB) *usuarios {
 }
 
 // Criar: Insere um usuário no banco de dados
-func (repositorio usuarios) Criar(usuario modelos.Usuarios) (uint64, error) {
+func (repositorio usuarios) Criar(usuario modelos.Usuario) (uint64, error) {
 
 	var ultimoIdInserido uint64
 
