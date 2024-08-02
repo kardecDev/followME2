@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	//Iniciando aplicação
 	config.Carregar()
 	fmt.Println("API Executando na porta: ", fmt.Sprintf(":%d", config.Porta_API))
 	routes := router.Gerar()
