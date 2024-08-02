@@ -1,0 +1,36 @@
+
+services:
+  postgres:
+    container_name: followme_db
+    image: postgres:14.5
+    environment:
+      POSTGRES_HOST: localhost
+      POSTGRES_PASSWORD: followme
+      POSTGRES_USER: followme
+      POSTGRES_DB: followme_db
+      PG_DATA: /var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    volumes:
+      - followme:/var/lib/postgresql/data
+    networks:
+      - followme_net
+  
+  followme:
+    container_name: api_followme_dev
+    depends_on:
+      - postgres
+    build:
+      context: ./src
+      dockerfile: ./Dockerfile 
+    ports:
+      - 5000:5000
+    networks:
+      - followme_net
+      
+networks:
+  followme_net:
+    driver: bridge
+
+volumes:
+  followme:    

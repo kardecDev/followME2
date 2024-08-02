@@ -1,0 +1,4 @@
+FROM golang:1.23rc2-alpine
+WORKDIR /app
+EXPOSE 5000
+CMD [ "tail", "-f", "/dev/null" ]
