@@ -8,9 +8,7 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
-	"strconv"
 
-	"github.com/gorilla/mux"
 )
 
 // CriarUsuario: Chama repositorio para criar um ususario
@@ -36,7 +34,6 @@ func CriarUsuario(w http.ResponseWriter, r *http.Request) {
 	if erro != nil {
 		respostas.Erro(w, http.StatusInternalServerError, erro)
 		return
-
 	}
 
 	repositorio := repositorios.NovoRepositorioDeUsuarios(db)
@@ -51,7 +48,19 @@ func CriarUsuario(w http.ResponseWriter, r *http.Request) {
 
 // BuscarUsuario: Retorna uma lista contendo todos os usuarios da aplicacao
 func BuscarUsuarios(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Buscar todos os usuarios"))
+	buscaUsuario := strings.ToLower(r.URL.Query().Get("usuario"))
+
+	db, erro := banco.Conectar()
+	if erro != nil {
+		respostas.Erro(w, http.StatusInternalServerError, erro)
+		return
+	}
+	defer db.Close()
+
+	repositorio := repositorios.NovoRepositorioDeUsuarios(db)
+	usuarios, erro := repositorio.Buscar(buscaUsuario)
+
+	respostas.JSON(w, http.StatusOK, usuarios)
 }
 
 // BuscarUsuario: Retorna um usuario especifico atraves de chave

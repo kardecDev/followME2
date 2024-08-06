@@ -3,18 +3,19 @@ package repositorios
 import (
 	"api/modelos"
 	"database/sql"
+	"fmt"
 )
 
-type usuarios struct {
+type Usuarios struct {
 	db *sql.DB
 }
 
-func NovoRepositorioDeUsuarios(db *sql.DB) *usuarios {
-	return &usuarios{db}
+func NovoRepositorioDeUsuarios(db *sql.DB) *Usuarios {
+	return &Usuarios{db}
 }
 
 // Criar: Insere um usuário no banco de dados
-func (repositorio usuarios) Criar(usuario modelos.Usuario) (uint64, error) {
+func (repositorio Usuarios) Criar(usuario modelos.Usuario) (uint64, error) {
 
 	var ultimoIdInserido uint64
 

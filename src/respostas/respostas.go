@@ -7,6 +7,7 @@ import (
 )
 
 func JSON(w http.ResponseWriter, statusCode int, dados interface{}) {
+	w.Header().Set("content-type", "application/json")
 	w.WriteHeader(statusCode)
 
 	if dados != nil {
