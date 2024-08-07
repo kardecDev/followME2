@@ -69,3 +69,48 @@ func (repositorio Usuarios) Buscar(buscaUsuario string) ([]modelos.Usuario, erro
 	return usuarios, nil
 
 }
+
+// Busca usuário por ID
+func (repositorio Usuarios) BuscarUsuarioPorID(id uint64) (modelos.Usuario, error) {
+	linhas, erro := repositorio.db.Query(
+		"select id, nome, nick, email, criadoEm from usuarios where id = $1",
+		id,
+	)
+	if erro != nil {
+		return modelos.Usuario{}, erro
+	}
+	defer linhas.Close()
+
+	var usuario modelos.Usuario
+
+	if linhas.Next() {
+		if erro = linhas.Scan(
+			&usuario.ID,
+			&usuario.Nome,
+			&usuario.Nick,
+			&usuario.Email,
+			&usuario.CriadoEm,
+		); erro != nil {
+			return modelos.Usuario{}, erro
+		}
+	}
+	return usuario, nil
+}
+
+// Atualizar: Atualiza informaçoes de ususário, com exceçao da senha que tera metodo proprio
+func (repositorio Usuarios) Atualizar(ID uint64, usuario modelos.Usuario) error {
+	statement, erro := repositorio.db.Prepare(
+		"update usuarios set nome = $1, nick = $2, email = $3 where id = $4",
+	)
+	if erro != nil {
+		return erro
+	}
+
+	defer statement.Close()
+
+	if _, erro = statement.Exec(usuario.Nome, usuario.Nick, usuario.Email, ID); erro != nil {
+		return erro
+	}
+	return nil
+
+}
