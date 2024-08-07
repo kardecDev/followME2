@@ -36,6 +36,7 @@ func (repositorio Usuarios) Criar(usuario modelos.Usuario) (uint64, error) {
 	return uint64(ultimoIdInserido), nil
 }
 
+<<<<<<< HEAD
 // Buscar: Tras todos os usuarios que satisfação ao filtro de nome e nick
 func (repositorio Usuarios) Buscar(buscaUsuario string) ([]modelos.Usuario, error) {
 
@@ -114,3 +115,5 @@ func (repositorio Usuarios) Atualizar(ID uint64, usuario modelos.Usuario) error 
 	return nil
 
 }
+=======
+>>>>>>> main

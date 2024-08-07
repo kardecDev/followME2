@@ -8,10 +8,14 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
+<<<<<<< HEAD
 	"strconv"
 	"strings"
 
 	"github.com/gorilla/mux"
+=======
+
+>>>>>>> main
 )
 
 // CriarUsuario: Chama repositorio para criar um ususario
@@ -135,6 +139,10 @@ func AtualizarUsuario(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respostas.JSON(w, http.StatusNoContent, nil)
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 }
 
 // DeletaUsuario: Remove um usario especifico atraves de chave
