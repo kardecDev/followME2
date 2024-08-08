@@ -22,7 +22,7 @@ CREATE TABLE public.usuarios (
 	nome varchar(50) NOT NULL,
 	nick varchar(50) NOT NULL,
 	email varchar(50) NOT NULL,
-	senha varchar(20) NOT NULL,
+	senha varchar(200) NOT NULL,
 	criadoem timestamp default current_timestamp,
 	CONSTRAINT usuarios_pk PRIMARY KEY (id),
 	CONSTRAINT usuarios_unique UNIQUE (nick)
